@@ -79,9 +79,12 @@ aws budgets create-budget \
     --budget file://aws/json/budget.json \
     --notifications-with-subscribers file://aws/json/notifications-with-subscribers.json
 
-![BudgetImage](../_docs/assets/budget.png)
 
 ```
+
+![BudgetImage](../_docs/assets/budget.png)
+
+
 **end**
 
 
