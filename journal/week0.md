@@ -7,7 +7,7 @@ Setup gitpod to run aws cli installation automatically and vscode :
 we have to write script in ".gitpod.yml"
 
 
-<!-- script -->
+**script**
 ```
 tasks:
   - name: aws-cli
@@ -27,21 +27,25 @@ vscode:
 
  ```   
 
- <!-- end-->
+ 
 
  After setup our AWS CLI we have to export some env variables to use it in our environment. Also it is important to have opened aws cloud session in browser and after that run gitpod.
 
-<!-- this is the wariable what we need -->
-we can use commnad "export" which will save variables in exact session or we can use git command "gp env" and it will save that variables in gitpod accound in specific secured location and we will have it alwasys.
+ 
 
+
+we can use commnad "export" which will save variables in exact session or we can use git command "gp env" and it will save that variables in gitpod accound in specific secured location and we will have it alwasys.
+```
  AWS_ACCESS_KEY_ID=""
  AWS_SECRET_ACCESS_KEY=""
  AWS_DEFAULT_REGION=""
+```
+**end**
 
 TO CHECK That the aws cli session is working we can run "aws sts get-caller-identity" it must return us USER ID,ACCOUND ID and ARN (Amazon Resource Names (ARNs) uniquely identify AWS resources)
 
 
-<!-- #Second Task Destroyed root account credentials, set MFA, IAM role AdministratorAccess: -->
+**Second Task Destroyed root account credentials, set MFA, IAM role AdministratorAccess:**
 1. We have to go to the IAM dashboard  and delete if there is any access keys for the root user and active MFA (I did it with virtual device )
 2. We have to create new user 
 3. We have to create new group in the user groups section and assign permission to that group. Best practice is to give minimal permission, which users need.
@@ -58,18 +62,18 @@ BILLING PERMISSIONS
 ![Alt text](../_docs/assets/billingaccess.png)
 
 
-<!-- end -->
+**end**
 
 
 
 
-<!-- Set a AWS Budget -->
+**Set a AWS Budget**
 Here we can find "budget.json" content which we need to setup budget from cli "notifications-with-subscribers.json" 
 
 [AWS BUDGET CLI](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html)
 
 script to run in the Cli to create the  AWS budget
-
+```
 aws budgets create-budget \
     --account-id your-accound-id \
     --budget file://aws/json/budget.json \
@@ -77,55 +81,94 @@ aws budgets create-budget \
 
 ![BudgetImage](../_docs/assets/budget.png)
 
-
-<!-- end -->
-
-
+```
+**end**
 
 
 
-<!-- Set SNS-TOPIC -->
+
+
+**Set SNS-TOPIC**
 We have to set Simple Notification Service (SNS topic ) for alarm 
 [Create SNS Topic](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-sns.html)
 
-for that we have to run "aws sns create-topic --name **my-topic**" it will return  Arn
+for that we have to run "aws sns create-topic --name __my-topic__" it will return  Arn
 
-
+```
 for example: 
 {
     "TopicArn": "arn:aws:sns:us-west-2:123456789012:my-topic"
 }
-
+```
 To subscribe to a topic, use the sns subscribe command.
-
-aws sns subscribe 
+```
+aws sns subscribe:
     --topic-arn arn:aws:sns:us-west-2:123456789012:my-topic 
     --protocol email 
     --notification-endpoint saanvi@example.com
+```
 
+we will receive in our mail confirmation email, and we have to accept it 
 ![Alt text](../_docs/assets/SNS-TOPIC.png)
 
 
+**end**
 
+**Set BillingAlarm(cloudwatch)**
+[create alarm json](https://aws.amazon.com/premiumsupport/knowledge-center/cloudwatch-estimatedcharges-alarm/)
 
-Set BillingAlarm(cloudwatch)
+```
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
+
+```
 
 ![Alt text](../_docs/assets/cloudwatchalarm.png)
 
 
+**end**
+
+**Set BilingAlerts**
+
+```
+setup configuration:
+
+    aws ce put-configuration --configuration "{"SnsTopicArn":"arn:aws:sns:us-east-1:123456789012:billing-alert","Enabled":true}"
+
+Check configuration:
+
+    aws ce get-configuration
 
 
-Set BilingAlerts
+```
 
 ![Alt text](../_docs/assets/billinAlert.png)
 
-Eventbridge to Hookup Health Dashboard to SNS and send notification
+**end**
+
+
+**Eventbridge to Hookup Health Dashboard to SNS and send notification**
+
+first create sns topic:
+```
+aws sns create-topic --name "Health Dashboard Notifications"
+```
+than Create an EventBridge rule to trigger notifications when a Health Dashboard event occurs.
+```
+
+
+aws events put-rule \
+--name "Health Dashboard Event Rule" \
+--event-pattern '{"source": ["aws.health"], "detail-type": ["AWS Health Event"], "detail": { "service": ["SNS"], "eventTypeCategory": ["issue"], "eventTypeCode": ["AWS_SNS_TOPIC_NOT_FOUND"], "eventStatus": ["open"] } }' \
+--state "ENABLED" \
+--description "Rule to trigger notifications for SNS topic not found errors"
+
+```
 
 ![Alt text](../_docs/assets/SNS-health.png)
 
 
 
-
+**end**
 
 
 
