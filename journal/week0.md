@@ -88,7 +88,7 @@ aws budgets create-budget \
 We have to set Simple Notification Service (SNS topic ) for alarm 
 [Create SNS Topic](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-sns.html)
 
-for that we have to run "aws sns create-topic --name <span style="color: red;">my-topic</span>" it will return  Arn
+for that we have to run "aws sns create-topic --name **my-topic**" it will return  Arn
 
 
 for example: 
