@@ -8,6 +8,7 @@ we have to write script in ".gitpod.yml"
 
 
 <!-- script -->
+```
 tasks:
   - name: aws-cli
     env:
@@ -23,6 +24,8 @@ tasks:
 vscode:
   extensions:
     - 42Crunch.vscode-openapi     
+
+ ```   
 
  <!-- end-->
 
