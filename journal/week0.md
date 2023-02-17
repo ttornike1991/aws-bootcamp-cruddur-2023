@@ -93,12 +93,15 @@ aws budgets create-budget \
 
 **Set SNS-TOPIC**
 We have to set Simple Notification Service (SNS topic ) for alarm 
+
 [Create SNS Topic](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-sns.html)
 
 for that we have to run "aws sns create-topic --name __my-topic__" it will return  Arn
 
-```
+
 for example: 
+```
+
 {
     "TopicArn": "arn:aws:sns:us-west-2:123456789012:my-topic"
 }
@@ -132,12 +135,16 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 
 **Set BilingAlerts**
 
-```
+
 setup configuration:
+```
+
 
     aws ce put-configuration --configuration "{"SnsTopicArn":"arn:aws:sns:us-east-1:123456789012:billing-alert","Enabled":true}"
 
+```
 Check configuration:
+```
 
     aws ce get-configuration
 
