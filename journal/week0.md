@@ -247,14 +247,18 @@ To ensure technical flexibility, it is important to consider these technical and
 
 Here is the conceptual diagram of my idea and I will sophisticate it during our bootcamp
 
+as i understand i make video because there was writen        [live-Stream]
+
+
+[Youtube-video-of-my-napkin](https://youtu.be/cMskKFnQxyo)
+
 [Conceptual-live-diagram. My online shop idea](https://lucid.app/lucidchart/56b2a22f-0895-44cb-915c-6cc3403933e7/edit?viewport_loc=-183%2C-57%2C2219%2C1065%2C0_0&invitationId=inv_c7fed908-fcdc-4327-a99d-c13c87582911)
 
 ![Alt text](../_docs/assets/onlineshop.png)
 
 What we did on livestream
 
-as i understand i make video because there was writen [live-Stream]
-[Youtube-video-of-my-napkin](https://youtu.be/cMskKFnQxyo)
+
 
 [Diagram-which-we-did-on-Live-session](https://lucid.app/lucidchart/4d2fdfd5-c166-4b4c-b602-65fbee246c4d/edit?shared=true&page=0_0&invitationId=inv_23b2d8e4-d0ca-4294-b5e9-7d91f2b8007c#)
 
