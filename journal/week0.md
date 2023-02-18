@@ -207,3 +207,8 @@ aws events put-rule \
 ```
 
 **end**
+
+
+**Open a support ticket and request a service limit**
+
+![Alt text](../_docs/assets/case.png)
