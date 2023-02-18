@@ -237,7 +237,7 @@ To ensure technical flexibility, it is important to consider these technical and
 
 ![Alt text](../_docs/assets/case.png)
 
-#11 
+# 11 
 
 **Lucidapp**
 
