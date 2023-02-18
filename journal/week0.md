@@ -1,5 +1,5 @@
 # Week 0 — Billing and Architecture
-
+# 1
 **first Task**
 
 # Setup gitpod to run aws cli installation automatically and vscode :
@@ -48,7 +48,7 @@ vscode:
 
 
 
-
+# 2
 **Second Task Destroyed root account credentials, set MFA, IAM role AdministratorAccess:**
 
 1. We have to go to the IAM dashboard  and delete if there is any access keys for the root user and active MFA (I did it with virtual device )
@@ -71,6 +71,7 @@ BILLING PERMISSIONS
 
 
 
+# 3
 
 **Set a AWS Budget**
 # Here we can find "budget.json" content which we need to setup budget from cli "notifications-with-subscribers.json" 
@@ -94,7 +95,7 @@ aws budgets create-budget \
 
 
 
-
+# 4
 
 **Set SNS-TOPIC**
 # We have to set Simple Notification Service (SNS topic ) for alarm 
@@ -125,6 +126,8 @@ aws sns subscribe:
 
 **end**
 
+# 5
+
 **Set BillingAlarm(cloudwatch)**
 [create alarm json](https://aws.amazon.com/premiumsupport/knowledge-center/cloudwatch-estimatedcharges-alarm/)
 
@@ -137,6 +140,10 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 
 
 **end**
+
+
+
+# 6
 
 **Set BilingAlerts**
 
@@ -160,6 +167,8 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 
 **end**
 
+
+# 7
 
 **Eventbridge to Hookup Health Dashboard to SNS and send notification**
 
@@ -185,6 +194,8 @@ aws events put-rule \
 
 **end**
 
+# 8
+
 **Well Architected Tool**
 
 # Reviewed all Questions
@@ -194,6 +205,8 @@ aws events put-rule \
 
 **end**
  
+
+ # 9
  **Research the technical and servie limits of specific servises and how they could impact the technical path for technical flexibility**
 
 
