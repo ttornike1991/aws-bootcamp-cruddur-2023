@@ -204,6 +204,6 @@ aws events put-rule \
 - Amazon Lambda: Amazon Lambda is a serverless compute service, but it does have some technical limits that could impact technical flexibility. For example, there may be limits on the amount of memory that can be allocated to a function, the amount of time a function can run, or the number of requests that can be processed in a given period of time. These limits could impact the ability to handle sudden spikes in traffic or to run long-running processes.
 
 ##To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.
-
+```
 
 **end**
