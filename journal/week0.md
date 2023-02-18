@@ -102,17 +102,20 @@ aws budgets create-budget \
 
 [Create SNS Topic](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-sns.html)
 
-***for that we have to run "aws sns create-topic --name ___my-topic___" it will return  Arn***
+for that we have to run "aws sns create-topic --name ___my-topic___" it will return  Arn
 
 
-***for example:***
+for example:
+
 ```
 
 {
     "TopicArn": "arn:aws:sns:us-west-2:123456789012:___my-topic___"
 }
 ```
-**To subscribe to a topic, use the sns subscribe command.**```
+To subscribe to a topic, use the sns subscribe command.
+
+```
 aws sns subscribe:
     --topic-arn arn:aws:sns:us-west-2:123456789012:my-topic 
     --protocol email 
