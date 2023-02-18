@@ -237,8 +237,10 @@ To ensure technical flexibility, it is important to consider these technical and
 
 ![Alt text](../_docs/assets/case.png)
 
+#11 
 
-Lucidapp
+**Lucidapp**
+
 [Cruddur-Logical-Diagram](https://lucid.app/lucidchart/b55d6693-7628-4501-a1d2-36bd01f143b3/edit?viewport_loc=-201%2C-41%2C2994%2C1437%2C0_0&invitationId=inv_b3be307c-3e2b-4a2e-89c5-8611ec0faf99)
 
 ![Alt text](../_docs/assets/livelucid1.png)
