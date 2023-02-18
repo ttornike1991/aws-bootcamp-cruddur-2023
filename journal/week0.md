@@ -2,12 +2,12 @@
 
 **first Task**
 
-#Setup gitpod to run aws cli installation automatically and vscode :
+# Setup gitpod to run aws cli installation automatically and vscode :
 
-## we have to write script in ".gitpod.yml"
+### we have to write script in ".gitpod.yml"
 
 
-**script**
+### script
 ```
 tasks:
   - name: aws-cli
@@ -29,24 +29,28 @@ vscode:
 
  
 
- # After setup our AWS CLI we have to export some env variables to use it in our environment. Also it is important to have opened aws cloud session in browser and after that run gitpod.
+ ### After setup our AWS CLI we have to export some env variables to use it in our environment. Also it is important to have opened aws cloud session in browser and after that run gitpod.
 
  
 
 
-## we can use commnad "export" which will save variables in exact session or we can use git command "gp env" and it will save that variables in gitpod accound in specific secured location and we will have it alwasys.
+### we can use commnad "export" which will save variables in exact session or we can use git command "gp env" and it will save that variables in gitpod accound in specific secured location and we will have it alwasys.
 
 ```
  AWS_ACCESS_KEY_ID=""
  AWS_SECRET_ACCESS_KEY=""
  AWS_DEFAULT_REGION=""
 ```
+
+### TO CHECK That the aws cli session is working we can run "aws sts get-caller-identity" it must return us USER ID,ACCOUND ID and ARN (Amazon Resource Names (ARNs) uniquely identify AWS resources)
+
 **end**
 
-# TO CHECK That the aws cli session is working we can run "aws sts get-caller-identity" it must return us USER ID,ACCOUND ID and ARN (Amazon Resource Names (ARNs) uniquely identify AWS resources)
+
 
 
 **Second Task Destroyed root account credentials, set MFA, IAM role AdministratorAccess:**
+
 1. We have to go to the IAM dashboard  and delete if there is any access keys for the root user and active MFA (I did it with virtual device )
 2. We have to create new user 
 3. We have to create new group in the user groups section and assign permission to that group. Best practice is to give minimal permission, which users need.
@@ -73,7 +77,7 @@ BILLING PERMISSIONS
 
 [AWS BUDGET CLI](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html)
 
-## script to run in the Cli to create the  AWS budget
+### script to run in the Cli to create the  AWS budget
 ```
 aws budgets create-budget \
     --account-id your-accound-id \
@@ -97,7 +101,7 @@ aws budgets create-budget \
 
 [Create SNS Topic](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-sns.html)
 
-## for that we have to run "aws sns create-topic --name __my-topic__" it will return  Arn
+### for that we have to run "aws sns create-topic --name __my-topic__" it will return  Arn
 
 
 ### for example: 
@@ -137,14 +141,14 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 **Set BilingAlerts**
 
 
-# setup configuration:
+### setup configuration:
 ```
 
 
     aws ce put-configuration --configuration "{"SnsTopicArn":"arn:aws:sns:us-east-1:123456789012:billing-alert","Enabled":true}"
 
 ```
-# Check configuration:
+### Check configuration:
 ```
 
     aws ce get-configuration
@@ -159,11 +163,11 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 
 **Eventbridge to Hookup Health Dashboard to SNS and send notification**
 
-# first create sns topic:
+### first create sns topic:
 ```
 aws sns create-topic --name "Health Dashboard Notifications"
 ```
-## than Create an EventBridge rule to trigger notifications when a Health Dashboard event occurs.
+### than Create an EventBridge rule to trigger notifications when a Health Dashboard event occurs.
 ```
 
 
@@ -183,7 +187,7 @@ aws events put-rule \
 
 **Well Architected Tool**
 
-#Reviewed all Questions
+# Reviewed all Questions
 
 ![Alt text](../_docs/assets/pillars.png)
 
@@ -193,7 +197,7 @@ aws events put-rule \
  **Research the technical and servie limits of specific servises and how they could impact the technical path for technical flexibility**
 
 
-## Technical and service limits vary between different AWS services, but here are some examples of how technical and service limits could impact the technical path for technical flexibility:
+### Technical and service limits vary between different AWS services, but here are some examples of how technical and service limits could impact the technical path for technical flexibility:
 
 ```
 
@@ -208,7 +212,7 @@ aws events put-rule \
 
 
 ```
-## To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.
+### To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.
 
 **end**
 
