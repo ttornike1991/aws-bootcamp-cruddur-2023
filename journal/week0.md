@@ -211,7 +211,7 @@ aws events put-rule \
  **Research the technical and servie limits of specific servises and how they could impact the technical path for technical flexibility**
 
 
-***Technical and service limits vary between different AWS services, but here are some examples of how technical and service limits could impact the technical path for technical flexibility:***
+Technical and service limits vary between different AWS services, but here are some examples of how technical and service limits could impact the technical path for technical flexibility:
 
 ```
 
@@ -226,9 +226,11 @@ aws events put-rule \
 
 
 ```
-***To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.***
+To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.
 
 **end**
+
+# 10
 
 
 **Open a support ticket and request a service limit**
@@ -236,21 +238,20 @@ aws events put-rule \
 ![Alt text](../_docs/assets/case.png)
 
 
-**Lucidapp**
+Lucidapp
 [Cruddur-Logical-Diagram](https://lucid.app/lucidchart/b55d6693-7628-4501-a1d2-36bd01f143b3/edit?viewport_loc=-201%2C-41%2C2994%2C1437%2C0_0&invitationId=inv_b3be307c-3e2b-4a2e-89c5-8611ec0faf99)
 
 ![Alt text](../_docs/assets/livelucid1.png)
 
-**Here is the conceptual diagram of my idea and I will sophisticate it during our bootcamp**
+Here is the conceptual diagram of my idea and I will sophisticate it during our bootcamp
 
 [Conceptual-live-diagram. My online shop idea](https://lucid.app/lucidchart/56b2a22f-0895-44cb-915c-6cc3403933e7/edit?viewport_loc=-183%2C-57%2C2219%2C1065%2C0_0&invitationId=inv_c7fed908-fcdc-4327-a99d-c13c87582911)
 
 ![Alt text](../_docs/assets/onlineshop.png)
 
+What we did on livestream
 
-**What we did on livestream**
-
-***as i understand i make video because there was writen [live-Stream]***
+as i understand i make video because there was writen [live-Stream]
 [Youtube-video-of-my-napkin](https://youtu.be/cMskKFnQxyo)
 
 [Diagram-which-we-did-on-Live-session](https://lucid.app/lucidchart/4d2fdfd5-c166-4b4c-b602-65fbee246c4d/edit?shared=true&page=0_0&invitationId=inv_23b2d8e4-d0ca-4294-b5e9-7d91f2b8007c#)
