@@ -1,13 +1,13 @@
 # Week 0 — Billing and Architecture
 # 1
-**first Task**
+ 
 
-# Setup gitpod to run aws cli installation automatically and vscode :
+**Setup gitpod to run aws cli installation automatically and vscode :**
 
-### we have to write script in ".gitpod.yml"
+ **we have to write script in ".gitpod.yml"**
 
 
-### script
+**script**
 ```
 tasks:
   - name: aws-cli
@@ -29,12 +29,12 @@ vscode:
 
  
 
- ### After setup our AWS CLI we have to export some env variables to use it in our environment. Also it is important to have opened aws cloud session in browser and after that run gitpod.
+**after setup our AWS CLI we have to export some env variables to use it in our environment. Also it is important to have opened aws cloud session in browser and after that run gitpod.**
 
  
 
 
-### we can use commnad "export" which will save variables in exact session or we can use git command "gp env" and it will save that variables in gitpod accound in specific secured location and we will have it alwasys.
+**we can use commnad "export" which will save variables in exact session or we can use git command "gp env" and it will save that variables in gitpod accound in specific secured location and we will have it alwasys.**
 
 ```
  AWS_ACCESS_KEY_ID=""
@@ -42,14 +42,14 @@ vscode:
  AWS_DEFAULT_REGION=""
 ```
 
-### TO CHECK That the aws cli session is working we can run "aws sts get-caller-identity" it must return us USER ID,ACCOUND ID and ARN (Amazon Resource Names (ARNs) uniquely identify AWS resources)
+**TO CHECK That the aws cli session is working we can run "aws sts get-caller-identity" it must return us USER ID,ACCOUND ID and ARN (Amazon Resource Names (ARNs) uniquely identify AWS resources)**
 
 **end**
 
 
 
 # 2
-**Second Task Destroyed root account credentials, set MFA, IAM role AdministratorAccess:**
+**Destroyed root account credentials, set MFA, IAM role AdministratorAccess:**
 
 1. We have to go to the IAM dashboard  and delete if there is any access keys for the root user and active MFA (I did it with virtual device )
 2. We have to create new user 
@@ -74,11 +74,11 @@ BILLING PERMISSIONS
 # 3
 
 **Set a AWS Budget**
-# Here we can find "budget.json" content which we need to setup budget from cli "notifications-with-subscribers.json" 
+**Here we can find "budget.json" content which we need to setup budget from cli "notifications-with-subscribers.json"**
 
 [AWS BUDGET CLI](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html)
 
-### script to run in the Cli to create the  AWS budget
+**script to run in the Cli to create the  AWS budget**
 ```
 aws budgets create-budget \
     --account-id your-accound-id \
@@ -98,29 +98,29 @@ aws budgets create-budget \
 # 4
 
 **Set SNS-TOPIC**
-# We have to set Simple Notification Service (SNS topic ) for alarm 
+**We have to set Simple Notification Service (SNS topic ) for alarm**
 
 [Create SNS Topic](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-sns.html)
 
-### for that we have to run "aws sns create-topic --name __my-topic__" it will return  Arn
+***for that we have to run "aws sns create-topic --name ___my-topic___" it will return  Arn***
 
 
-### for example: 
+***for example:***
 ```
 
 {
-    "TopicArn": "arn:aws:sns:us-west-2:123456789012:my-topic"
+    "TopicArn": "arn:aws:sns:us-west-2:123456789012:___my-topic___"
 }
 ```
-### To subscribe to a topic, use the sns subscribe command.
-```
+**To subscribe to a topic, use the sns subscribe command.**```
 aws sns subscribe:
     --topic-arn arn:aws:sns:us-west-2:123456789012:my-topic 
     --protocol email 
     --notification-endpoint saanvi@example.com
 ```
 
-### we will receive in our mail confirmation email, and we have to accept it 
+**we will receive in our mail confirmation email, and we have to accept it** 
+
 ![Alt text](../_docs/assets/SNS-TOPIC.png)
 
 
@@ -148,18 +148,16 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 **Set BilingAlerts**
 
 
-### setup configuration:
+***setup configuration:***
 ```
 
 
     aws ce put-configuration --configuration "{"SnsTopicArn":"arn:aws:sns:us-east-1:123456789012:billing-alert","Enabled":true}"
 
 ```
-### Check configuration:
+***Check configuration:***
 ```
-
     aws ce get-configuration
-
 
 ```
 
@@ -172,11 +170,11 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.js
 
 **Eventbridge to Hookup Health Dashboard to SNS and send notification**
 
-### first create sns topic:
+***first create sns topic:***
 ```
 aws sns create-topic --name "Health Dashboard Notifications"
 ```
-### than Create an EventBridge rule to trigger notifications when a Health Dashboard event occurs.
+***than Create an EventBridge rule to trigger notifications when a Health Dashboard event occurs.***
 ```
 
 
@@ -198,7 +196,7 @@ aws events put-rule \
 
 **Well Architected Tool**
 
-# Reviewed all Questions
+**Reviewed all Questions**
 
 ![Alt text](../_docs/assets/pillars.png)
 
@@ -210,7 +208,7 @@ aws events put-rule \
  **Research the technical and servie limits of specific servises and how they could impact the technical path for technical flexibility**
 
 
-### Technical and service limits vary between different AWS services, but here are some examples of how technical and service limits could impact the technical path for technical flexibility:
+***Technical and service limits vary between different AWS services, but here are some examples of how technical and service limits could impact the technical path for technical flexibility:***
 
 ```
 
@@ -225,7 +223,7 @@ aws events put-rule \
 
 
 ```
-### To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.
+***To ensure technical flexibility, it is important to consider these technical and service limits when designing and implementing AWS services. By understanding these limits, you can design solutions that are scalable, reliable, and cost-effective. For example, you may need to consider the use of multiple regions or the use of different AWS services to work around technical limits. Additionally, you may need to consider using auto-scaling or load balancing to ensure that your services can handle sudden changes in demand.***
 
 **end**
 
@@ -240,14 +238,17 @@ aws events put-rule \
 
 ![Alt text](../_docs/assets/livelucid1.png)
 
-# Here is the conceptual diagram of my idea and I will sophisticate it during our bootcamp
+**Here is the conceptual diagram of my idea and I will sophisticate it during our bootcamp**
 
 [Conceptual-live-diagram. My online shop idea](https://lucid.app/lucidchart/56b2a22f-0895-44cb-915c-6cc3403933e7/edit?viewport_loc=-183%2C-57%2C2219%2C1065%2C0_0&invitationId=inv_c7fed908-fcdc-4327-a99d-c13c87582911)
 
 ![Alt text](../_docs/assets/onlineshop.png)
 
 
-# What we did on livestream
+**What we did on livestream**
+
+***as i understand i make video because there was writen [live-Stream]***
+[Youtube-video-of-my-napkin](https://youtu.be/cMskKFnQxyo)
 
 [Diagram-which-we-did-on-Live-session](https://lucid.app/lucidchart/4d2fdfd5-c166-4b4c-b602-65fbee246c4d/edit?shared=true&page=0_0&invitationId=inv_23b2d8e4-d0ca-4294-b5e9-7d91f2b8007c#)
 
