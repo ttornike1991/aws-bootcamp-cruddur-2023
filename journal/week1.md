@@ -26,7 +26,7 @@ I create new Repository for Application deployment. Just for containerization
 Setup Databases
 
 
-![Postgres](vscode-local:/postgres.png)
+ ![Postgres](../_docs/assets/week-1/postgres.png)
 
 
 
@@ -38,7 +38,7 @@ SCANING
 MITIGATING:
 
 
-![Mitigated](vscode-local:/mitigatedvulerabilityesleftsomecodebasedvculns.png)
+![mitigation](../_docs/assets/week-1/mitigatedvulerabilityesleftsomecodebasedvculns.png)
 
 
 **END**
