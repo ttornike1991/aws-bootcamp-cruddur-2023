@@ -210,7 +210,7 @@ EXPOSE ${PORT}
 ENTRYPOINT ["/bin/bash", "./npmi.sh"]
 
 ```
-*** I have implemented that stuff into another repository, as there was written in task to make new one.***
+ 
 
 **End-of-file**
 
