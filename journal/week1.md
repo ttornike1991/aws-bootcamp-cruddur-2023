@@ -305,6 +305,23 @@ It will be great if there will be more video material about it.
 
 # 9 Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
 
+**I run EC2 instance and setup inbound rules for specific port to be available from outside**
+- stall docker
+- pull container 
+- run image
+- assigne port
+- check availability from browser and from instance with curl
+
+![ec2 instance](https://user-images.githubusercontent.com/100797221/220767338-6831d7b1-90c9-41bb-83d5-0a0942348d51.png)
+
+![ec2 instancebrowser](https://user-images.githubusercontent.com/100797221/220767357-341de3f8-a1ac-4e60-b180-f3c77d95cdac.png)
+
+![ec2 instancebrxxxxowser](https://user-images.githubusercontent.com/100797221/220767545-c5af7a2b-8682-4eb2-95fe-2e7f1c722f9e.png)
+
+
+
+
+
 
 
 
