@@ -44,7 +44,8 @@ MITIGATING:
 **End-of-file**
 
 
-# 4 Run the dockerfile CMD
+# 4 Run the dockerfile CMD  as an external script
+
 
 ![Run the dockerfile CMD as an external script](https://user-images.githubusercontent.com/100797221/220750861-22c5fff7-6a82-4bf7-bf28-c941bf316301.png)
 
@@ -151,6 +152,8 @@ docker push ttornike1991/frontend:1.0
 docker push ttornike1991/dynamodb:1.0
 docker push ttornike1991/postgres:1.0
 ```
+![dockerrepo](https://user-images.githubusercontent.com/100797221/220754647-66ea9bf9-b894-46ac-aa62-947ad5b47373.png)
+
 *** I have implemented that stuff into another repository, as there was written in task to make new one. Basic containerization setup also implemented on main repo***
 
 **End-of-file**
@@ -286,3 +289,23 @@ volumes:
   db:
     driver: local
 ```    
+**End-of-file**
+
+# 8  Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
+
+**I get images which i pushed on docker repo, I figure out to open in browser, through localhost, frontent image.There was issue for postgres authentication error.All other images was running, but cant touch through browser. In my mind i think  there would be root container like our gitpod session, so it need Dockerfile also. I tried it but it was not working when pulling to my machine and it was 7GB, so i thought it was wrong way and deleted that part**
+
+It will be great if there will be more video material about it.
+
+![imageslocaly](https://user-images.githubusercontent.com/100797221/220757442-af4b09d9-084d-421a-839c-bb7770b1f8cc.jpg)
+
+![frontlocaly](https://user-images.githubusercontent.com/100797221/220757500-dd10c187-ef0b-4185-bb19-cc1a6261e712.png)
+
+**End-of-file**
+
+# 9 Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
+
+
+
+
+
