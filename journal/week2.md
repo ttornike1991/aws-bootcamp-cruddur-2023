@@ -136,6 +136,12 @@ def rollbar_test():
 
 [Rollbar Flask Example](https://github.com/rollbar/rollbar-flask-example/blob/master/hello.py)
 
+ 
+**Trigger an error an observe an error with Rollbar:**
+
+![rollbar](https://user-images.githubusercontent.com/100797221/222237339-71e9691b-123b-4a1c-84a9-62e4c34a2e58.png)
+
+
 
 
 
