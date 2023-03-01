@@ -6,14 +6,14 @@ When creating a new dataset in Honeycomb it will provide all these installation 
 
 We'll add the following files to our <code> requirements.txt <code>.
   
-```
+  ```
 opentelemetry-api 
 opentelemetry-sdk 
 opentelemetry-exporter-otlp-proto-http 
 opentelemetry-instrumentation-flask 
 opentelemetry-instrumentation-requests
   
-```
+  ```
 We'll install these dependencies:
 
 ```
@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ```
 Add to the <code> app.py <code>
   
-```
+  ```
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
