@@ -7,5 +7,5 @@ opentelemetry-exporter-otlp-proto-http
 opentelemetry-instrumentation-flask 
 opentelemetry-instrumentation-requests
 
-honeycomb-beeline
-setuptools
+blinker
+rollbar
