@@ -63,8 +63,12 @@ gp env HONEYCOMB_SERVICE_NAME="Cruddur"
 ![user id](https://user-images.githubusercontent.com/100797221/222235904-53bf78f1-6e72-40ad-a9f7-2467a2d59314.png)
 
 **run queries to explore traces within Honeycomb.io**
+
+**#1**
 ![query1](https://user-images.githubusercontent.com/100797221/222235966-cf6962de-850f-415d-8131-c020abbfc6fd.png)
+**#2**
 ![query2](https://user-images.githubusercontent.com/100797221/222235994-a02beeb1-e721-4371-847f-b91e982ef3c6.png)
+**#3**
 ![query3](https://user-images.githubusercontent.com/100797221/222236001-e1f7dbc5-9de4-4fec-a800-2b4b10087719.png)
 
 
