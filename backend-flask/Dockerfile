@@ -22,6 +22,7 @@ COPY . .
 # Inside Container and wil remain set when the container is running
 ENV FLASK_ENV=development
 
+
 EXPOSE ${PORT}
 
 # CMD (Command)
