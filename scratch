@@ -1,5 +1,5 @@
-export HONEYCOMB_API_KEY="CuM9q3IgYjx8fvdkUF7fNeD"
-gp env HONEYCOMB_API_KEY="CuM9q3IgYjx8fvdkUF7fNeD"
+export HONEYCOMB_API_KEY="uM9q3IgYjx8fvdkUF7fNeD"
+gp env HONEYCOMB_API_KEY="uM9q3IgYjx8fvdkUF7fNeD"
 
 export HONEYCOMB_SERVICE_NAME="Crudder"
 gp env HONEYCOMB_SERVICE_NAME="Crudder"
