@@ -141,8 +141,97 @@ def rollbar_test():
 
 ![rollbar](https://user-images.githubusercontent.com/100797221/222237339-71e9691b-123b-4a1c-84a9-62e4c34a2e58.png)
 
+# 2 X-ray
+
+**Instrument AWS X-Ray for Flask**
+```
+export AWS_REGION=
+gp env AWS_REGION=
+```
+
+Add to the <code>  requirements.txt </code>
+```
+aws-xray-sdk
+
+```
+
+Install pythondependencies:
+```
+pip install -r  requirements.txt
+```
+
+Add to <code> app.py </code>
+```
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
+
+![x-ray-traces](https://user-images.githubusercontent.com/100797221/222680759-a05cdd47-933d-446d-8e54-bd65080070a4.png)
+
+**Setup AWS X-Ray Resources**
+Add <code> aws/json/xray.json </code>
+```
+{
+  "SamplingRule": {
+      "RuleName": "Cruddur",
+      "ResourceARN": "*",
+      "Priority": 9000,
+      "FixedRate": 0.1,
+      "ReservoirSize": 5,
+      "ServiceName": "backend-flask",
+      "ServiceType": "*",
+      "Host": "*",
+      "HTTPMethod": "*",
+      "URLPath": "*",
+      "Version": 1
+  }
+}
+```
+
+```
+
+FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"backend-flask\") "
+```
+```
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+![x-raygroop](https://user-images.githubusercontent.com/100797221/222681111-fc7919cd-458b-42e9-9ef7-f70e9d7b890d.png)
+![samplingxray](https://user-images.githubusercontent.com/100797221/222681124-e2dd68fe-0649-49f5-b006-f56b6d4f5982.png)
 
 
+**Add Deamon Service to Docker Compose**
+```
+  xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-east-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+We need to add these two env vars to our backend-flask in our <code > docker-compose.yml </code> file:
+```
+      AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+      
+ ```
+ 
+ 
+ 
 
-
-
+ 
+ 
+ **setup custom subsegment trace loging***
+ ![custom-segment](https://user-images.githubusercontent.com/100797221/222680584-9a4ef0ea-f455-4d8f-b0d0-553a310f2dfb.png)
+     
+![activities_home](https://user-images.githubusercontent.com/100797221/222681170-157009ef-5180-46dd-979d-99ee90b0afb1.png)
