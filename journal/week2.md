@@ -235,3 +235,49 @@ We need to add these two env vars to our backend-flask in our <code > docker-com
  ![custom-segment](https://user-images.githubusercontent.com/100797221/222680584-9a4ef0ea-f455-4d8f-b0d0-553a310f2dfb.png)
      
 ![activities_home](https://user-images.githubusercontent.com/100797221/222681170-157009ef-5180-46dd-979d-99ee90b0afb1.png)
+
+# 4 CloudWatch Logs
+
+Add to the <code>requirements.txt:</code>
+```
+watchtower
+```
+Install pythondependencies:
+```
+pip install -r  requirements.txt
+```
+
+In <code>app.py</code>
+In app.py
+```
+import watchtower
+import logging
+from time import strftime
+```
+```
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
+```
+```
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+Set the env var in your <code>backend-flask</code> for <code>docker-compose.yml</code>
+```
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+![cloudwatch](https://user-images.githubusercontent.com/100797221/222728448-e7f1bed2-2963-4757-b6e2-300fb2340968.png)
+
+
