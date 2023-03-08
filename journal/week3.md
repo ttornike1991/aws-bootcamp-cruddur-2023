@@ -221,7 +221,7 @@ React.useEffect(()=>{
 }, [])
 ```
 Updated <code>ProfileInfo.js</code>
-
+```
 import { Auth } from 'aws-amplify';
 
 const signOut = async () => {
