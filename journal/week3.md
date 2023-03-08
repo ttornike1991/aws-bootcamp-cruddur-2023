@@ -186,7 +186,7 @@ Add in the `HomeFeedPage.js` a header eto pass along the access token
     Authorization: `Bearer ${localStorage.getItem("access_token")}`
   }
 ```
-Clear **access_token** in <code>localStorage</code>
+Erase **access_token** in <code>localStorage</code>
 
 In <code>ProfileInfo.js</code> Update <code>signOut</code> function:
 
