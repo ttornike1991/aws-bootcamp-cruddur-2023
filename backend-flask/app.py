@@ -166,12 +166,9 @@ def data_create_message():
 @xray_recorder.capture('activities_home')
 def data_home():
   access_token = extract_access_token(request.headers)
-  print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",access_token,"aaaaaaaaaaaa",request.headers)
   try:
     claims = cognito_jwt_token.verify(access_token)
     # authenicatied request
-    app.logger.debug("aaaaaaaaaaaaaaassssssssssssssss", claims)
-    print("ccccccccccccccccccccccccccccccccccccccccccc",claims)
     data = HomeActivities.run(logger=LOGGER,cognito_user_id=claims['username'])
   except TokenVerifyError as e:
     # unauthenicatied request
