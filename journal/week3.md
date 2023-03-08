@@ -186,7 +186,20 @@ Add in the `HomeFeedPage.js` a header eto pass along the access token
     Authorization: `Bearer ${localStorage.getItem("access_token")}`
   }
 ```
+Clear **access_token** in <code>localStorage</code>:
+In <code>ProfileInfo.js</code> Update <code>signOut</code> function:
 
+```
+const signOut = async () => {
+    try {
+        await Auth.signOut({ global: true });
+        window.location.href = "/"
+        localStorage.removeItem("access_token")
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+  }
+```
 # 4 Show conditional elements and data based on logged in or logged out
 
 Inside our <code>HomeFeedPage.js</code>:
