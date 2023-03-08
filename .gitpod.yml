@@ -10,6 +10,8 @@ tasks:
       cd $THEIA_WORKSPACE_ROOT
   - name: Install NPM dependencies
     command: cd frontend-react-js && npm install
+  - name: Install AWS Amplify
+    command: cd frontend-react-js && npm i aws-amplify --save
   - name: postgres
     init: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
