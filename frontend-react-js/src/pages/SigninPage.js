@@ -20,6 +20,7 @@ export default function SigninPage() {
     Auth.signIn(email, password)
     .then(user => {
       localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+      console.log(localStorage.getItem("access_token"))
       window.location.href = "/"
     })
     .catch(error => { 
