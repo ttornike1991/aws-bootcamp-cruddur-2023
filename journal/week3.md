@@ -186,21 +186,7 @@ Add in the `HomeFeedPage.js` a header eto pass along the access token
     Authorization: `Bearer ${localStorage.getItem("access_token")}`
   }
 ```
-Erase **access_token** in <code>localStorage</code>
 
-In <code>ProfileInfo.js</code> Update <code>signOut</code> function:
-
-```
-const signOut = async () => {
-    try {
-        await Auth.signOut({ global: true });
-        window.location.href = "/"
-        localStorage.removeItem("access_token")
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
-  }
-```
 # 4 Show conditional elements and data based on logged in or logged out
 
 Inside our <code>HomeFeedPage.js</code>:
@@ -239,13 +225,14 @@ Updated <code>ProfileInfo.js</code>
 import { Auth } from 'aws-amplify';
 
 const signOut = async () => {
-  try {
-      await Auth.signOut({ global: true });
-      window.location.href = "/"
-  } catch (error) {
-      console.log('error signing out: ', error);
+    try {
+        await Auth.signOut({ global: true });
+        window.location.href = "/"
+        localStorage.removeItem("access_token")
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
   }
-}
 ```
 
 # 5 Verify JWT Token server side to serve authenticated API endpoints in Flask Application
