@@ -111,7 +111,7 @@ VALUES
 
 
 
-# 3 Setup Scripts for Creat,Connect,Drop,Schema-load,Seed - DATABASE
+# 3 Setup Scripts for db-creat,db-connect,db-rop,db-schema-load,db-Seed 
 
 Make folder <code>backend-flask/bin/</code>:
 
