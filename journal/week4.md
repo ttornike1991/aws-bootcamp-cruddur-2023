@@ -94,6 +94,7 @@ CREATE TABLE public.activities (
 ); 
 ```
 **create seed data**
+
 Make file <code>backend-flask/db/seed.sql</code>:
 
 ```sql
