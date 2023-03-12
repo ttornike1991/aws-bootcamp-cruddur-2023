@@ -57,11 +57,31 @@ aws rds create-db-instance \
 
 From AWS Console We can temporarily stop an RDS instance for a couple of days for cost saveing, when we aren't using it.
 
-# Setup Scripts for Creat,Connect,Drop,Schema-load,Seed - DATABASES
+# Setup Scripts for Creat,Connect,Drop,Schema-load,Seed - DATABASE
 
 Make folder <code>backend-flask/bin/</code>:
 
+**db-creat script**
+
+Make file <code>backend-flask/bin/db-creat</code>:
+
+```bash
+#! /usr/bin/bash
+
+  
+CYAN='\033[1;36m'  #some color styling
+NO_COLOR='\033[0m'  #some color styling
+LABEL="DB-CREATE"   
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"   
+
+NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+psql $NO_DB_CONNECTION_URL -c "create database cruddur;"
+
+```
+
+
 **db-connect script**
+
 Make file <code>backend-flask/bin/db-connect</code>:
 
 ```bash
@@ -69,12 +89,92 @@ Make file <code>backend-flask/bin/db-connect</code>:
 
 CYAN='\033[1;36m'  #some color styling
 NO_COLOR='\033[0m'  #some color styling
-LABEL="DB-CONNECT"   #some color styling
-printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"   #some color styling
+LABEL="DB-CONNECT"   
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"   
 
 psql $CONNECTION_URL
 
 ```
+
+
+**db-drop script**
+
+Make file <code>backend-flask/bin/db-drop</code>:
+
+```bash
+#! /usr/bin/bash
+
+ 
+CYAN='\033[1;36m'  #some color styling
+NO_COLOR='\033[0m' #some color styling
+LABEL="DB-DROP"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+psql $NO_DB_CONNECTION_URL -c "DROP DATABASE cruddur;"
+
+```
+
+
+**db-schema-load script**
+
+Make file <code>backend-flask/bin/schema-load</code>:
+
+```bash
+#!/usr/bin/bash
+
+GREEN='\033[0;32m'   #some color styling
+RED='\033[0;31m'      #some color styling
+CYAN='\033[1;36m'      #some color styling
+NO_COLOR='\033[0m'       #some color styling
+LABEL="DB-SCHEMA-LOADED"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+schema_path="$(realpath .)/db/schema.sql"
+echo $schema_path
+
+if [ "$1" = "prod" ]; then
+    printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+else
+    printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+fi
+
+psql $CON_URL cruddur < $schema_path
+
+```
+
+**db-seed script**
+
+Make file <code>backend-flask/bin/seed</code>:
+
+```bash
+#!/usr/bin/bash
+  
+GREEN='\033[0;32m'   #some color styling
+RED='\033[0;31m'     #some color styling
+CYAN='\033[1;36m'    #some color styling
+NO_COLOR='\033[0m'    #some color styling
+LABEL="DB-SCHEMA-LOADED"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+schema_path="$(realpath .)/db/schema.sql"
+echo $schema_path
+
+if [ "$1" = "prod" ]; then
+    printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+else
+    printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+fi
+
+psql $CON_URL cruddur < $schema_path
+
+```
+
+
 
 
 
