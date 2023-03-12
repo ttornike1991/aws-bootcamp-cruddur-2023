@@ -29,7 +29,7 @@ DELETE FROM table_name WHERE condition; -- Delete data from a table
 ```
 
 
-# Provision RDS Instance - Setup Postgres from aws-cli
+# 1 Provision RDS Instance - Setup Postgres from aws-cli
 
 ```aws-cli
 aws rds create-db-instance \
@@ -57,7 +57,45 @@ aws rds create-db-instance \
 
 From AWS Console We can temporarily stop an RDS instance for a couple of days for cost saveing, when we aren't using it.
 
-# Setup Scripts for Creat,Connect,Drop,Schema-load,Seed - DATABASE
+
+# 2 Create database  tables
+Make folder <code>backend-flask/db/schema.sql</code>:
+
+```sql
+DROP TABLE IF EXISTS public.users;
+DROP TABLE IF EXISTS public.activities;
+```
+
+```sql
+CREATE TABLE public.users (
+  uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  display_name text,
+  handle text
+  cognito_user_id text,
+  created_at TIMESTAMP default current_timestamp NOT NULL
+);
+```
+```sql
+
+CREATE TABLE public.activities (
+  uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  message text NOT NULL,
+  replies_count integer DEFAULT 0,
+  reposts_count integer DEFAULT 0,
+  likes_count integer DEFAULT 0,
+  reply_to_activity_uuid integer,
+  expires_at TIMESTAMP,
+  created_at TIMESTAMP default current_timestamp NOT NULL
+);
+```
+
+
+
+
+
+
+
+# 3 Setup Scripts for Creat,Connect,Drop,Schema-load,Seed - DATABASE
 
 Make folder <code>backend-flask/bin/</code>:
 
@@ -118,7 +156,7 @@ psql $NO_DB_CONNECTION_URL -c "DROP DATABASE cruddur;"
 
 **db-schema-load script**
 
-Make file <code>backend-flask/bin/schema-load</code>:
+Make file <code>backend-flask/bin/db-schema-load</code>:
 
 ```bash
 #!/usr/bin/bash
@@ -147,7 +185,7 @@ psql $CON_URL cruddur < $schema_path
 
 **db-seed script**
 
-Make file <code>backend-flask/bin/seed</code>:
+Make file <code>backend-flask/bin/db-seed</code>:
 
 ```bash
 #!/usr/bin/bash
