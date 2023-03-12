@@ -45,7 +45,7 @@ Amplify.configure({
 **added Auto installation for AWS Amplify**
 
 Paste this lines in <code>.gitpod.yml</code>:
-```bash
+```yaml
 - name: Install AWS Amplify
     command: cd frontend-react-js && npm i aws-amplify --save
 ```
