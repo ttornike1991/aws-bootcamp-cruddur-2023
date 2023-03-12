@@ -57,3 +57,24 @@ aws rds create-db-instance \
 
 From AWS Console We can temporarily stop an RDS instance for a couple of days for cost saveing, when we aren't using it.
 
+# Setup Scripts for Creat,Connect,Drop,Schema-load,Seed - DATABASES
+
+Make folder <code>backend-flask/bin/</code>:
+
+**db-connect script**
+Make file <code>backend-flask/bin/db-connect</code>:
+
+```bash
+#! /usr/bin/bash
+
+CYAN='\033[1;36m'  #some color styling
+NO_COLOR='\033[0m'  #some color styling
+LABEL="DB-CONNECT"   #some color styling
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"   #some color styling
+
+psql $CONNECTION_URL
+
+```
+
+
+
