@@ -53,7 +53,7 @@ aws rds create-db-instance \
   --no-deletion-protection
 ```
 
-
+<blockquote> This will take about 10-15 mins </blockquote>
 
 
 
