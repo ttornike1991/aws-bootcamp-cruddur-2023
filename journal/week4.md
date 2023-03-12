@@ -59,7 +59,12 @@ From AWS Console We can temporarily stop an RDS instance for a couple of days fo
 
 
 # 2 Create database  tables
-Make folder <code>backend-flask/db/schema.sql</code>:
+
+Make folder <code>backend-flask/db</code>
+
+**create table**
+
+Make file <code>backend-flask/db/schema.sql</code>:
 
 ```bash
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -88,8 +93,8 @@ CREATE TABLE public.activities (
   created_at TIMESTAMP default current_timestamp NOT NULL
 ); 
 ```
-
-Make folder <code>backend-flask/db/seed.sql</code>:
+**create seed data**
+Make file <code>backend-flask/db/seed.sql</code>:
 
 ```sql
 -- this file was manually created
