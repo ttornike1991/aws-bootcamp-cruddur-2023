@@ -44,11 +44,12 @@ Amplify.configure({
 **added Auto installation for AWS Amplify**
 
 Paste this lines in <code>.gitpod.yml</code>:
-
+<pre>
 ```
 - name: Install AWS Amplify
     command: cd frontend-react-js && npm i aws-amplify --save
 ```
+<pre>
 # 3 Implement API calls to Amazon Coginto for custom login, signup, recovery and forgot password page
 
 **SignIn Page**
