@@ -27,7 +27,7 @@ INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...); -- 
 UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition; -- Update data in a table
 DELETE FROM table_name WHERE condition; -- Delete data from a table
 ```
-**Define Variables in to the environment:**
+**Define Variables in the environment:**
 
 ```bash
 postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]    #syntax example to connect postgres
