@@ -2,7 +2,7 @@
 
 To connect to psql via the psql client cli tool remember to use the host flag to specific localhost.
 
-# **Command Examples**
+### Command Examples
 
 ```bash
 psql -Upostgres --host localhost
