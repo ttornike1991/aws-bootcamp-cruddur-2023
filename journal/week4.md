@@ -73,7 +73,7 @@ From AWS Console We can temporarily stop an RDS instance for a couple of days fo
 
 Make folder <code>backend-flask/db</code>
 
-**create table**
+**Create table:**
 
 Make file <code>backend-flask/db/schema.sql</code>:
 
@@ -104,7 +104,7 @@ CREATE TABLE public.activities (
   created_at TIMESTAMP default current_timestamp NOT NULL
 ); 
 ```
-**create seed data**
+**Create seed data:**
 
 Make file <code>backend-flask/db/seed.sql</code>:
 
