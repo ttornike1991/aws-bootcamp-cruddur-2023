@@ -22,7 +22,7 @@ Using the AWS Console we'll create a Cognito User Group
 **Configure Amplify**
 
 We need to hook up our cognito pool to our code in the <code>App.js</code>
-
+<pre>
 ```
 import { Amplify } from 'aws-amplify';
 
@@ -40,16 +40,15 @@ Amplify.configure({
 });
 
 ```
+</pre>
 
 **added Auto installation for AWS Amplify**
 
 Paste this lines in <code>.gitpod.yml</code>:
-<pre>
 ```
 - name: Install AWS Amplify
     command: cd frontend-react-js && npm i aws-amplify --save
 ```
-<pre>
 # 3 Implement API calls to Amazon Coginto for custom login, signup, recovery and forgot password page
 
 **SignIn Page**
