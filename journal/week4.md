@@ -55,5 +55,5 @@ aws rds create-db-instance \
 
 <blockquote> This will take about 10-15 mins </blockquote>
 
-
+From AWS Console We can temporarily stop an RDS instance for a couple of days for cost saveing, when we aren't using it.
 
