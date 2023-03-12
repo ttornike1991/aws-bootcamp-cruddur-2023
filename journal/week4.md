@@ -9,7 +9,7 @@ psql -Upostgres --host localhost
 ```
 **Common PSQL commands:**
 
-```postgres
+```bash
 \x on -- expanded display when looking at data
 \q -- Quit PSQL
 \l -- List all databases
