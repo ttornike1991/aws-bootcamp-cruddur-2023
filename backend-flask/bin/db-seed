@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-SEED"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+seed_path="$(realpath .)/db/seed.sql"
+echo $seed_path
+
+if [ "$1" = "prod" ]; then
+    printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+else
+    printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+fi
+
+psql $CON_URL cruddur < $seed_path
