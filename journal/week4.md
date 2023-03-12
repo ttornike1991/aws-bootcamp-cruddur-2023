@@ -27,7 +27,16 @@ INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...); -- 
 UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition; -- Update data in a table
 DELETE FROM table_name WHERE condition; -- Delete data from a table
 ```
+```bash
+postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]    #syntax example to connect postgres
 
+export CONNECTION_URL="postgresql://your_db_username:your_db_password@localhost:5432/cruddur"  # export variable localy
+gp env CONNECTION_URL="postgresql://your_db_username:your_db_password@localhost:5432/cruddur"  # export variable into gitpod variables storage
+
+export PROD_CONNECTION_URL="postgresql://your_aws_postgres_username:your_aws_postgres_password@your_db_instance_endpoint:5432/cruddur"   # export variable localy
+gp env PROD_CONNECTION_URL="postgresql://your_aws_postgres_username:your_aws_postgres_password@your_db_instance_endpoint:5432/cruddur"   # export variable into gitpod variables storage
+
+```
 
 # 1 Provision RDS Instance - Setup Postgres from aws-cli
 
