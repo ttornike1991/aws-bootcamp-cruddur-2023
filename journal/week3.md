@@ -11,7 +11,7 @@ It was done during live session and I remake it because of some wrong setup issu
 # 2 Install and configure Amplify client-side library for Amazon Congito
 
 **Install AWS Amplify**
-```
+```bash
 npm i aws-amplify --save
 
 ```
@@ -22,8 +22,8 @@ Using the AWS Console we'll create a Cognito User Group
 **Configure Amplify**
 
 We need to hook up our cognito pool to our code in the <code>App.js</code>
-<pre>
-```
+ 
+```javascript
 import { Amplify } from 'aws-amplify';
 
 Amplify.configure({
@@ -40,19 +40,19 @@ Amplify.configure({
 });
 
 ```
-</pre>
+ 
 
 **added Auto installation for AWS Amplify**
 
 Paste this lines in <code>.gitpod.yml</code>:
-```
+```bash
 - name: Install AWS Amplify
     command: cd frontend-react-js && npm i aws-amplify --save
 ```
 # 3 Implement API calls to Amazon Coginto for custom login, signup, recovery and forgot password page
 
 **SignIn Page**
-```
+```javascript
 import { Auth } from 'aws-amplify';
 
 const [cognitoErrors, setCognitoErrors] = React.useState('');
@@ -80,7 +80,7 @@ const onsubmit = async (event) => {
 ```
 **SignUp Page**
 
-```
+```javascript
 import { Auth } from 'aws-amplify';
 
 const [cognitoErrors, setCognitoErrors] = React.useState('');
@@ -114,7 +114,7 @@ const onsubmit = async (event) => {
 
 **Confirmation Page**
 
-```
+```javascript
 const resend_code = async (event) => {
   setErrors('')
   try {
@@ -149,7 +149,7 @@ const onsubmit = async (event) => {
 
 **Recovery Page**
 
-```
+```javascript
 import { Auth } from 'aws-amplify';
 
 const onsubmit_send_code = async (event) => {
@@ -187,7 +187,7 @@ Add in the `HomeFeedPage.js` a header eto pass along the access token
 # 4 Show conditional elements and data based on logged in or logged out
 
 Inside our <code>HomeFeedPage.js</code>:
-```
+```javascript
 import { Auth } from 'aws-amplify';
 
 
@@ -218,7 +218,7 @@ React.useEffect(()=>{
 }, [])
 ```
 Updated <code>ProfileInfo.js</code>
-```
+```javascript
 import { Auth } from 'aws-amplify';
 
 const signOut = async () => {
@@ -236,13 +236,13 @@ const signOut = async () => {
 
 In the <code>app.py</code>
 
-```
+```python
 import os
 ```
  
 
 Under <code>app=Flask(__name__)</code>:
-```
+```python
 cognito_jwt_token = CognitoJwtToken(
   user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
   user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
@@ -250,7 +250,7 @@ cognito_jwt_token = CognitoJwtToken(
 )
 ```
 
-```
+```python
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
@@ -262,7 +262,7 @@ cors = CORS(
 ```
 
 Modify <code>def data_home():</code>
-```
+```python
 def data_home():
   access_token = extract_access_token(request.headers)
   try:
@@ -279,12 +279,12 @@ def data_home():
 In <code>home_activities.py</code>:
 
 Pass Variable <code>cognito_user_id=None</code> in <code>def run(logger):</code>
-```
+```python
 def run(logger,cognito_user_id=None):
 ```
 
 Added that code in <code>def run(logger,cognito_user_id=None):</code> before <code>return</code> statement
-```
+```python
 if cognito_user_id != None:
         extra_crud = {
           'uuid': '248959df-3079-4947-b847-9e0892d1bab4',
@@ -301,7 +301,7 @@ Make dir  <code> backend-flask/lib/cognito_jwt_token.py</code>**
 
 In <code>cognito_jwt_token.py</code>:
 
-```
+```python
 import time
 import requests
 from jose import jwk, jwt
