@@ -4,3 +4,6 @@ gp env CONNECTION_URL="postgresql://postgres:xxxxxxxxxxxxxxxxxxxxxxxxx@localhost
 
 export PROD_CONNECTION_URL="postgresql://root:XXXXXXXXXXXXXXXXXXXXX@cruddur-db-instance.cvdutdyovd9g.eu-central-1.rds.amazonaws.com:5432/cruddur"
 gp env PROD_CONNECTION_URL="postgresql://root:XXXXXXXXXXXXXXXXXXXXX@cruddur-db-instance.cvdutdyovd9g.eu-central-1.rds.amazonaws.com:5432/cruddur"
+
+
+ 
