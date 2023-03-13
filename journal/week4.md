@@ -432,3 +432,47 @@ class HomeActivities:
 
 ```
 
+# 6 Connect to RDS via Gitpod
+
+In order to connect to the RDS instance we need to provide our Gitpod IP and whitelist for inbound traffic on port 5432.
+
+```console
+
+GITPOD_IP=$(curl ifconfig.me)
+
+```
+
+```console
+
+export GITPOD_IP=$(curl ifconfig.me)
+
+gp env GITPOD_IP=$(curl ifconfig.me)
+
+
+```
+
+We'll create an inbound rule for Postgres (5432) and provide the GITPOD ID.
+
+We'll get the security group rule id so we can easily modify it in the future from the terminal here in Gitpod.
+
+```console
+
+export DB_SG_ID="sg-0b725ebab7e25635e"
+gp env DB_SG_ID="sg-0b725ebab7e25635e"
+export DB_SG_RULE_ID="sgr-070061bba156cfa88"
+gp env DB_SG_RULE_ID="sgr-070061bba156cfa88"
+
+``` 
+Whenever we need to update our security groups we can do this for access.
+
+```console
+
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+    
+  ```  
+
+
+
+
