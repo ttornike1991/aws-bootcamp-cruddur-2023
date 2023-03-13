@@ -342,11 +342,11 @@ We need to set the env var for our backend-flask application:
 
 We'll add the following to our <code>requirments.txt</code>:
 
-```shell
+```console
 psycopg[binary]
 psycopg[pool]
 ```
-```shell
+```console
 pip install -r requirements.txt
 
 ```
