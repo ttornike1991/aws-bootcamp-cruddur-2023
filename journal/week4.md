@@ -342,7 +342,7 @@ We need to set the env var for our backend-flask application:
 
 We'll add the following to our <code>requirments.txt</code>:
 
-```console
+```text
 psycopg[binary]
 psycopg[pool]
 ```
@@ -351,8 +351,84 @@ pip install -r requirements.txt
 
 ```
 
+# 5 DB Object and Connection Pool
+
+In path <code>backend-flask/lib</code>  add <code>db.py</code>
+
+In <code>db.py</code>:
 
 
+```python
+from psycopg_pool import ConnectionPool
+import os
+
+ 
+def query_wrap_object(template):
+  sql = f"""
+  (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
+  {template}
+  ) object_row);
+  """
+  return sql
+
+def query_wrap_array(template):
+  sql = f"""
+  (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+  {template}
+  ) array_row);
+  """
+  return sql
 
 
+connection_url = os.getenv("CONNECTION_URL")
+pool = ConnectionPool(connection_url)
+
+```
+In our <code>/backend-flask/services/home_activities.py</code> we'll replace our mock endpoint with real api call:
+
+Full updated code in <code>home_activities.py</code>:
+
+```python
+
+from datetime import datetime, timedelta, timezone
+from opentelemetry import trace
+from lib.db import pool,query_wrap_array
+tracer = trace.get_tracer("home.activities.here")
+ 
+class HomeActivities:
+  def run(logger,cognito_user_id=None):
+    # logger.info('home-activities-cloudwatch')
+    # with tracer.start_as_current_span("home-page-mock-data"):
+    #   span = trace.get_current_span()
+    # now = datetime.now(timezone.utc).astimezone()
+    #   span.set_attribute("app.now", now.isoformat())  
+    #   span.set_attribute("user.id", "We have not User id defined in flask")
+    
+    sql=query_wrap_array( """
+    SELECT
+        activities.uuid,
+        users.display_name,
+        users.handle,
+        activities.message,
+        activities.replies_count,
+        activities.reposts_count,
+        activities.likes_count,
+        activities.reply_to_activity_uuid,
+        activities.expires_at,
+        activities.created_at
+      FROM public.activities
+      LEFT JOIN public.users ON users.uuid = activities.user_uuid
+      ORDER BY activities.created_at DESC
+    """)
+    with pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(sql)
+        # this will return a tuple
+        # the first field being the data
+        json = cur.fetchone()
+       
+      return json[0]
+      return results
+
+```
 
