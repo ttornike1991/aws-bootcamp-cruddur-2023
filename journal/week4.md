@@ -463,7 +463,7 @@ export DB_SG_RULE_ID="sgr-070061bba156cfa88"
 gp env DB_SG_RULE_ID="sgr-070061bba156cfa88"
 
 ``` 
-Whenever we need to update our security groups we can do this for access.
+Whenever we need to update our security groups we can do this for access. Also we already have <code> bash </code> script for that.
 
 ```console
 
@@ -472,6 +472,31 @@ aws ec2 modify-security-group-rules \
     --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
     
   ```  
+  
+  # 7 Update Gitpod IP on new env var
+  
+ ```yml
+ 
+  - name: EXPORT GITPOD IP
+    command: |
+      export GITPOD_IP=$(curl ifconfig.me)
+      source  "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sg-rule"
+
+```
+ There was issue for <code> npm install </code> in <code>.gitpod.yml</code>, for every new instance it was trying npm install again and again and sometimes it caused an error for <code>node_modules</code>
+ 
+ I modified that task; it will check if there is no module only for that case will be installed:
+ 
+ ```yml
+ 
+ - name: Install NPM dependencies if not already installed
+    command: |
+      if [ ! -d "$THEIA_WORKSPACE_ROOT/frontend-react-js/node_modules" ]; then
+        cd frontend-react-js && npm install
+      fi
+      
+  ```
+ 
 
 
 
