@@ -442,7 +442,7 @@ GITPOD_IP=$(curl ifconfig.me)
 
 ```
 
-```console
+```bash
 
 export GITPOD_IP=$(curl ifconfig.me)
 
@@ -455,7 +455,7 @@ We'll create an inbound rule for Postgres (5432) and provide the GITPOD ID.
 
 We'll get the security group rule id so we can easily modify it in the future from the terminal here in Gitpod.
 
-```console
+```bash
 
 export DB_SG_ID="sg-0b725ebab7e25635e"
 gp env DB_SG_ID="sg-0b725ebab7e25635e"
