@@ -128,7 +128,7 @@ VALUES
 
 
 
-# 3 Setup Scripts for db-creat,db-connect,db-rop,db-schema-load,db-Seed 
+# 3 Bash Scripts for db-creat,db-connect,db-rop,db-schema-load,db-Seed,db-setup,db-session,rds-update-sg-rule
 
 Make folder <code>backend-flask/bin/</code>:
 
@@ -244,6 +244,91 @@ fi
 psql $CON_URL cruddur < $schema_path
 
 ```
+
+**db-setup script**
+
+Make file <code>backend-flask/bin/db-setup</code>:
+
+```bash
+#! /usr/bin/bash
+
+ 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-SETUP"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+bin_path="$(realpath .)/bin"
+ 
+
+ 
+source "$bin_path/db-drop"
+source "$bin_path/db-create"
+source "$bin_path/db-schema-load"
+source "$bin_path/db-seed"
+
+```
+
+**db-session script**
+
+Make file <code>backend-flask/bin/db-session</code>:
+
+```bash
+
+#! /usr/bin/bash
+
+ 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-SESSIONS"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+
+if [ "$1" = "prod" ]; then
+    printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+else
+    printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+fi
+
+
+ 
+NO_DB_URL=$(sed 's/\/cruddur//g' <<<"$CON_URL")
+psql $NO_DB_URL -c "select pid as process_id, \
+       usename as user,  \
+       datname as db, \
+       client_addr, \
+       application_name as app,\
+       state \
+from pg_stat_activity;"
+
+```
+
+**rds-update-sg-rule**
+
+Make file <code>backend-flask/bin/rds-update-sg-rule</code>:
+
+```bash
+#! /usr/bin/bash
+
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="RDS-UPDATE-SG-RULE"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+    
+```    
+
+
 
 
 
