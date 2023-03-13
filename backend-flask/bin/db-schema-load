@@ -12,7 +12,7 @@ echo $schema_path
 
 if [ "$1" = "prod" ]; then
     printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
-    CON_URL=$CONNECTION_URL
+    CON_URL=$PROD_CONNECTION_URL
 else
     printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
     CON_URL=$CONNECTION_URL
