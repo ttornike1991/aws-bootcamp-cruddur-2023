@@ -535,7 +535,7 @@ aws ec2 modify-security-group-rules \
 
 Make folder<code>aws/lambdas</code>:
 
-In <ode> aws/lambdas </code> make file <code> cruddur-post-confirmation.py </code> and insert python script:
+In <code> aws/lambdas </code> make file <code> cruddur-post-confirmation.py </code> and insert <code>python</code> script:
 
 ```python
 
