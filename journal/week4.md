@@ -531,6 +531,115 @@ aws ec2 modify-security-group-rules \
       
   ```
  
+# 7 Lambda function Development
+
+Make folder<code>aws/lambdas</code>:
+
+In <ode> aws/lambdas </code> make file <code> cruddur-post-confirmation.py </code> and insert python script:
+
+```python
+
+import json
+import psycopg2
+import os
+
+def lambda_handler(event, context):
+    user = event['request']['userAttributes']
+    user_display_name=user['name']
+    user_email=user['email']
+    user_handle=user['preferred_username']
+    user_cognito_id=user['sub']
+     
+    try:
+        sql = f"""
+        INSERT INTO users (display_name, email,handle, cognito_user_id) 
+        VALUES('{user_display_name}','{user_email}','{user_handle}','{user_cognito_id}')
+        """
+
+        conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit() 
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        
+    finally:
+        if conn is not None:
+            cur.close()
+            conn.close()
+            print('Database connection closed.')
+
+    return event
+    
+ ```
+ 
+ 
+ We have to edit VPC details  for lambda function configuration
+ 
+ ![vpc](https://user-images.githubusercontent.com/100797221/225717522-5e461bcb-1ff8-40ae-856d-393f123a6d01.png)
+
+Also we have to add <code>Permissions</code> to that function, for that we have to make new <code>AWS Policy</code> and attache it to the <code>AWS Role</code>
+
+```json
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeInstances",
+        "ec2:AttachNetworkInterface"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+```
+![policy](https://user-images.githubusercontent.com/100797221/225719251-51124d7f-5058-4869-827b-7705eea7627e.png)
+
+
+
+
+We also updated <code> /backend-flask/db/schema.sql </code>
+
+```sql
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+DROP TABLE IF EXISTS public.users;
+DROP TABLE IF EXISTS public.activities;
+
+CREATE TABLE public.users (
+  uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  display_name text NOT NULL,
+  handle text NOT NULL,
+  email text NOT NULL,
+  cognito_user_id text NOT NULL,
+  created_at TIMESTAMP default current_timestamp NOT NULL
+);
+
+CREATE TABLE public.activities (
+  uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_uuid UUID NOT NULL,
+  message text NOT NULL,
+  replies_count integer DEFAULT 0,
+  reposts_count integer DEFAULT 0,
+  likes_count integer DEFAULT 0,
+  reply_to_activity_uuid integer,
+  expires_at TIMESTAMP,
+  created_at TIMESTAMP default current_timestamp NOT NULL
+);
+
+```
+
+**At list delete user from cognito console and resigne up user from application(it must to work)**
+
 
 
 
