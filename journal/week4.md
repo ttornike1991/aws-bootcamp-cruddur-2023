@@ -139,12 +139,13 @@ Make file <code>backend-flask/bin/db-creat</code>:
 ```bash
 #! /usr/bin/bash
 
-  
-CYAN='\033[1;36m'  #some color styling
-NO_COLOR='\033[0m'  #some color styling
-LABEL="DB-CREATE"   
-printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"   
+ 
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-CREATE"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
+ 
 NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
 psql $NO_DB_CONNECTION_URL -c "create database cruddur;"
 
@@ -158,12 +159,26 @@ Make file <code>backend-flask/bin/db-connect</code>:
 ```bash
 #! /usr/bin/bash
 
-CYAN='\033[1;36m'  #some color styling
-NO_COLOR='\033[0m'  #some color styling
-LABEL="DB-CONNECT"   
-printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"   
 
-psql $CONNECTION_URL
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-CONNECT"
+printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
+
+
+
+if [ "$1" = "prod" ]; then
+    printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$PROD_CONNECTION_URL
+else
+    printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
+    CON_URL=$CONNECTION_URL
+fi
+
+
+psql $CON_URL
 
 ```
 
@@ -176,8 +191,8 @@ Make file <code>backend-flask/bin/db-drop</code>:
 #! /usr/bin/bash
 
  
-CYAN='\033[1;36m'  #some color styling
-NO_COLOR='\033[0m' #some color styling
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
 LABEL="DB-DROP"
 printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
@@ -194,10 +209,10 @@ Make file <code>backend-flask/bin/db-schema-load</code>:
 ```bash
 #!/usr/bin/bash
 
-GREEN='\033[0;32m'   #some color styling
-RED='\033[0;31m'      #some color styling
-CYAN='\033[1;36m'      #some color styling
-NO_COLOR='\033[0m'       #some color styling
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
 LABEL="DB-SCHEMA-LOADED"
 printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
@@ -214,6 +229,7 @@ fi
 
 psql $CON_URL cruddur < $schema_path
 
+
 ```
 
 **db-seed script**
@@ -222,26 +238,27 @@ Make file <code>backend-flask/bin/db-seed</code>:
 
 ```bash
 #!/usr/bin/bash
-  
-GREEN='\033[0;32m'   #some color styling
-RED='\033[0;31m'     #some color styling
-CYAN='\033[1;36m'    #some color styling
-NO_COLOR='\033[0m'    #some color styling
-LABEL="DB-SCHEMA-LOADED"
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-SEED"
 printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
-schema_path="$(realpath .)/db/schema.sql"
-echo $schema_path
+seed_path="$(realpath .)/db/seed.sql"
+echo $seed_path
 
 if [ "$1" = "prod" ]; then
     printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
-    CON_URL=$CONNECTION_URL
+    CON_URL=$PROD_CONNECTION_URL
 else
     printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
     CON_URL=$CONNECTION_URL
 fi
 
-psql $CON_URL cruddur < $schema_path
+psql $CON_URL cruddur < $seed_path
+
 
 ```
 
@@ -290,7 +307,7 @@ printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
 if [ "$1" = "prod" ]; then
     printf "${GREEN}It's PRODUCTION!${NO_COLOR}\n"
-    CON_URL=$CONNECTION_URL
+    CON_URL=$PROD_CONNECTION_URL
 else
     printf "${RED}NOT PRODUCTION!${NO_COLOR}\n"
     CON_URL=$CONNECTION_URL
@@ -332,6 +349,7 @@ done
 aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
     --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+
     
 ```    
 We added extra condition to the <code>rds-update-sg-rule</code> to ensure that <code>aws cli</code> is installed(if there is for any reason delay with installation)
