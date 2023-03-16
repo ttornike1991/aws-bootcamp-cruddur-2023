@@ -4,15 +4,11 @@ import os
 
 def lambda_handler(event, context):
     user = event['request']['userAttributes']
-    print(user,"mnnaddddddddddddddddddddddddnananan")
     user_display_name=user['name']
     user_email=user['email']
     user_handle=user['preferred_username']
     user_cognito_id=user['sub']
-    print(user,"mnnaddddddddddddddddddddddddnananangggggggggggggggg")
     try:
-        
-        print(user,"mnnaddddddddddddddddddddddddnananan1111111111111111")
         sql = f"""
         INSERT INTO users (display_name, email,handle, cognito_user_id) 
         VALUES('{user_display_name}','{user_email}','{user_handle}','{user_cognito_id}')
