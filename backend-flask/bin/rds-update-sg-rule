@@ -6,7 +6,7 @@ NO_COLOR='\033[0m'
 LABEL="RDS-UPDATE-SG-RULE"
 printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
-sleep 5
+sleep 12
 
 aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
