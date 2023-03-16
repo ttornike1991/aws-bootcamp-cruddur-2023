@@ -314,19 +314,33 @@ from pg_stat_activity;"
 Make file <code>backend-flask/bin/rds-update-sg-rule</code>:
 
 ```bash
-#! /usr/bin/bash
-
+#!/usr/bin/bash
 
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 LABEL="RDS-UPDATE-SG-RULE"
 printf "${CYAN}== ${LABEL} ==${NO_COLOR}\n"
 
+counter=0
+while ! aws ec2 describe-instances &> /dev/null
+do
+    printf "AWS CLI is not installed yet, waiting for ${counter} seconds...\n"
+    sleep 1
+    ((counter++))
+done
+
 aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
     --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
     
 ```    
+We added extra condition to the <code>rds-update-sg-rule</code> to ensure that <code>aws cli</code> is installed(if there is for any reason delay with installation)
+
+![awssleep](https://user-images.githubusercontent.com/100797221/225666552-7d7fbddc-dd49-4e2e-988a-38572aa01d62.png)
+
+
+
+
 
 # 4 Install Postgres Client
 
