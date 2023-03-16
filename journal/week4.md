@@ -336,6 +336,8 @@ aws ec2 modify-security-group-rules \
 ```    
 We added extra condition to the <code>rds-update-sg-rule</code> to ensure that <code>aws cli</code> is installed(if there is for any reason delay with installation)
 
+**CLI screenshot**
+
 ![awssleep](https://user-images.githubusercontent.com/100797221/225666552-7d7fbddc-dd49-4e2e-988a-38572aa01d62.png)
 
 
