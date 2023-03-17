@@ -46,7 +46,6 @@ class Db:
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
 
-    print(params,"ssssssssssssssssssssssssssssssssssssssssssssasxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     try:
       with self.pool.connection() as conn:
         cur =  conn.cursor()
