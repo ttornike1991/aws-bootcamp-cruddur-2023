@@ -58,16 +58,16 @@ LOGGER.info('test-log')
 
 #HONEYCOMB ---------------------------------------------------
 # Initialize tracing and an exporter that can send data to Honeycomb
-provider = TracerProvider()
-processor = BatchSpanProcessor(OTLPSpanExporter())
-provider.add_span_processor(processor)
-#trace logs in console
-simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
-provider.add_span_processor(simple_processor)
+# provider = TracerProvider()
+# processor = BatchSpanProcessor(OTLPSpanExporter())
+# provider.add_span_processor(processor)
+# #trace logs in console
+# simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
+# provider.add_span_processor(simple_processor)
 
 
-trace.set_tracer_provider(provider)
-tracer = trace.get_tracer(__name__)
+# trace.set_tracer_provider(provider)
+# tracer = trace.get_tracer(__name__)
  
 
 app = Flask(__name__)
@@ -80,8 +80,8 @@ cognito_jwt_token = CognitoJwtToken(
 
 #honeycomb
 # Initialize automatic instrumentation with Flask
-FlaskInstrumentor().instrument_app(app)
-RequestsInstrumentor().instrument()
+# FlaskInstrumentor().instrument_app(app)
+# RequestsInstrumentor().instrument()
 
 #AWS_XRAY APP
 XRayMiddleware(app, xray_recorder)
@@ -169,11 +169,11 @@ def data_home():
   try:
     claims = cognito_jwt_token.verify(access_token)
     # authenicatied request
-    data = HomeActivities.run(logger=LOGGER,cognito_user_id=claims['username'])
+    data = HomeActivities.run(cognito_user_id=claims['username'])
   except TokenVerifyError as e:
     # unauthenicatied request
     print("An error occurred:", str(e))
-    data = HomeActivities.run(logger=LOGGER)
+    data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
@@ -212,6 +212,7 @@ def data_activities():
   else:
     return model['data'], 200
   return
+
 
 @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
 @xray_recorder.capture('activities_show')
