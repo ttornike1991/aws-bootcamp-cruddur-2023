@@ -47,3 +47,6 @@ ports:
   - name: postgres
     port: 5432
     visibility: public
+  - name: postgres
+    port: 8000
+    visibility: public

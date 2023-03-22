@@ -18,8 +18,9 @@ class MessageGroups:
 
     ddb = Ddb.client()
     data = Ddb.list_message_groups(ddb, my_user_uuid)
-    print("list_message_groups:",data)
+    print("list_message_groups", data)
     print(data)
- 
+
+     
     model['data'] = data
     return model
