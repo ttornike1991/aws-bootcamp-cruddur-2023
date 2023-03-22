@@ -10,9 +10,7 @@ tasks:
       cd $THEIA_WORKSPACE_ROOT
   - name: Install NPM dependencies if not already installed
     command: |
-      if [ ! -d "$THEIA_WORKSPACE_ROOT/frontend-react-js/node_modules" ]; then
-        cd frontend-react-js && npm install
-      fi
+      [ ! -d "$THEIA_WORKSPACE_ROOT/frontend-react-js/node_modules" ] && cd frontend-react-js && npm install
   - name: flask 
     command: |
       cd backend-flask 
