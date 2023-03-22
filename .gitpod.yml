@@ -17,8 +17,6 @@ tasks:
     command: |
       cd backend-flask 
       pip install -r requirements.txt
-    
-
   - name: Install AWS Amplify
     command: cd frontend-react-js && npm i aws-amplify --save
   - name: postgres
