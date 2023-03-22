@@ -1,6 +1,7 @@
 #! /usr/bin/bash
 
- 
+set -e # stop if it fails at any point
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 CYAN='\033[1;36m'
@@ -12,7 +13,7 @@ bin_path="$(realpath .)/bin"
  
 
  
-source "$bin_path/db-drop"
-source "$bin_path/db-create"
-source "$bin_path/db-schema-load"
-source "$bin_path/db-seed"
+source "$bin_path/db/drop"
+source "$bin_path/db/create"
+source "$bin_path/db/schema-load"
+source "$bin_path/db/seed"
