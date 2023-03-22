@@ -13,6 +13,10 @@ tasks:
       if [ ! -d "$THEIA_WORKSPACE_ROOT/frontend-react-js/node_modules" ]; then
         cd frontend-react-js && npm install
       fi
+  - name: flask 
+    command: |
+      cd backend-flask 
+      pip install -r requirments.txt
     
 
   - name: Install AWS Amplify
