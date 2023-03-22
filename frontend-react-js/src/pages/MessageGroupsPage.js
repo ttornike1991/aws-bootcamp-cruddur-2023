@@ -21,7 +21,6 @@ export default function MessageGroupsPage() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`
         },
         method: "GET"
-        method: "GET"
       });
       let resJson = await res.json();
       if (res.status === 200) {
