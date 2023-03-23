@@ -11,6 +11,7 @@ tasks:
   - name: Install NPM dependencies if not already installed
     command: |
       cd frontend-react-js && npm install
+      
   - name: flask 
     command: |
       cd backend-flask 
