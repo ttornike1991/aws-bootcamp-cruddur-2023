@@ -42,7 +42,9 @@ ORDER BY messages.created_at DESC
 <pre>
 ```diff
 
-message_group_uuid comes from Pattern B 
+! message_group_uuid comes from Pattern B 
+
+```
 
 </pre>
 
