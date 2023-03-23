@@ -11,7 +11,7 @@ Week 5 Implement Conversations with DynamoDB
 ```
 
 
-#1 DynamoDB Bash Scripts
+# 1 DynamoDB Bash Scripts
 
 ```bash
 
@@ -19,7 +19,7 @@ Week 5 Implement Conversations with DynamoDB
 
 ```
 
-#2 The Boundaries of DynamoDB
+# 2 The Boundaries of DynamoDB
 
 - When you write a query you have provide a Primary Key (equality) eg. pk = 'andrew'
 - Are you allowed to "update" the Hash and Range?
@@ -30,7 +30,7 @@ Week 5 Implement Conversations with DynamoDB
 
 3 Access Patterns
 
-#3 Pattern A (showing a single conversation)
+# 3 Pattern A (showing a single conversation)
 
 A user wants to see a list of messages that belong to a message group The messages must be ordered by the created_at timestamp from newest to oldest (DESC)
 
@@ -53,7 +53,7 @@ ORDER BY messages.created_at DESC
 </blockquote> message_group_uuid comes from Pattern B </blockquote>
 
 
-#4 Pattern B (list of conversation)
+# 4 Pattern B (list of conversation)
 
 A user wants to see a list of previous conversations. These conversations are listed from newest to oldest (DESC) We want to see the other person we are talking to. We want to see the last message (from whomever) in summary.
 
@@ -73,7 +73,7 @@ ORDER BY message_groups.last_message_at DESC
 ```
 </blockquote> We need a Global Secondary Index (GSI) </blockquote>
 
-#5 Pattern C (create a message
+# 5 Pattern C (create a message
 
 ```sql
 
@@ -91,7 +91,7 @@ VALUES (
 );
 
 ```
-#6 Pattern D (update a message_group for the last message)
+# 6 Pattern D (update a message_group for the last message)
 
 When a user creates a message we need to update the conversation to display the last message information for the conversation
 
@@ -113,7 +113,7 @@ WHERE
 
 
 
-#7 DynamoDB Stream trigger to update message groups
+# 7 DynamoDB Stream trigger to update message groups
 
 
 - create a VPC endpoint for dynamoDB service on your VPC
