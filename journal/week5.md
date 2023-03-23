@@ -38,4 +38,4 @@ WHERE
 ORDER BY messages.created_at DESC
 
 ```
-<span style="color: #999999;">message_group_uuid comes from Pattern B</span>.
+<span style="color: green;">message_group_uuid comes from Pattern B</span>.
