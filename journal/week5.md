@@ -10,6 +10,122 @@ Week 5 DynamoDb Utility Scrips
 Week 5 Implement Conversations with DynamoDB
 ```
 
+# Install boto3
+
+In <code>backend-flask/requirements.txt</code> whe have to add <code> boto3</code>:
+
+```bash
+
+pip install -r requirements.txt
+
+```
+
+# Scripts for ddb
+
+New path  <codem> /workspace/aws-bootcamp-cruddur-2023/backend-flask/bin/ddb </code>:
+
+<sup> In `#ffffff` drop </sup>
+
+
+
+
+In sub dir <code> ddb/patterns/get-converstions</code>:
+
+```bash
+
+#! /usr/bin/bash
+
+set -e # stop if it fails at any point
+
+if [ -z "$1" ]; then
+  echo "No TABLE_NAME argument supplied eg ./bin/ddb/drop cruddur-messages prod "
+  exit 1
+fi
+TABLE_NAME=$1
+
+if [ "$2" = "prod" ]; then
+  ENDPOINT_URL=""
+else
+  ENDPOINT_URL="--endpoint-url=http://localhost:8000"
+fi
+
+echo "deleting table: $TABLE_NAME"
+
+aws dynamodb delete-table $ENDPOINT_URL \
+  --table-name $TABLE_NAME
+
+```
+
+In sub dir <code> ddb/patterns/get-converstions</code>:
+
+```bash
+
+#!/usr/bin/env python3
+
+import boto3
+import sys
+import json
+import os
+import  datetime
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..', '..'))
+sys.path.append(parent_path)
+from lib.db import db
+
+attrs = {
+  'endpoint_url': 'http://localhost:8000'
+}
+
+if len(sys.argv) == 2:
+  if "prod" in sys.argv[1]:
+    attrs = {}
+
+dynamodb = boto3.client('dynamodb',**attrs)
+table_name = 'cruddur-messages'
+
+def get_my_user_uuid():
+  sql = """
+    SELECT 
+      users.uuid
+    FROM users
+    WHERE
+      users.handle =%(handle)s
+  """
+  uuid = db.query_value(sql,{
+    'handle':  'ttornike1991'
+  })
+  return uuid
+
+my_user_uuid = get_my_user_uuid()
+print(f"my-uuid: {my_user_uuid}")
+year =  str(datetime.datetime.now().year)
+# define the query parameters
+query_params = {
+  'TableName': table_name,
+  'KeyConditionExpression': 'pk = :pk AND begins_with(sk,:year)',
+  'ScanIndexForward': False,
+  'ExpressionAttributeValues': {
+    ':year': {'S': year },
+    ':pk': {'S': f"GRP#{my_user_uuid}"}
+  },
+  'ReturnConsumedCapacity': 'TOTAL'
+}
+
+# query the table
+response = dynamodb.query(**query_params)
+
+# print the items returned by the query
+print(json.dumps(response, sort_keys=True, indent=2))
+
+```
+
+
+
+
+
+
+
 
 # 1 DynamoDB Bash Scripts
 
