@@ -936,7 +936,7 @@ print(dict_users)
 
 ```
 
-Export <code> AWS_COGNITO_USER_POOL_ID <code>
+Export <code> AWS_COGNITO_USER_POOL_ID </code>:
 
 ```bash
 
