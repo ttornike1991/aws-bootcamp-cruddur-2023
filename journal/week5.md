@@ -1787,7 +1787,27 @@ WHERE
 - add your function as a trigger on the stream
 - grant the lambda IAM role permission to read the DynamoDB stream events
 
-<code> AWSLambdaInvocation-DynamoDB</code>
+<code> cruddur-messaging-stream-dynamodb </code>
+
+```json
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:Query"
+            ],
+            "Resource": "arn:aws:dynamodb:eu-central-1:967673295761:table/cruddur-messages"
+        }
+    ]
+}
+
+```
 
 - grant the lambda IAM role permission to update table items
 
